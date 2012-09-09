@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+    <script src="msgpack.js"></script>
+    <script>
+    $(function() {
+      if (!("WebSocket" in window)) {
+        // The browser doesn't support WebSocket
+        alert("WebSocket NOT supported by your Browser!");
+        return;
+      }
+
+      var ws = new WebSocket("ws://localhost:9998");
+      ws.binaryType = 'arraybuffer';
+      ws.onopen = function (evt) {
+        console.debug('connected');
+        $('#chat').prepend('connected');
+      }
+
+      ws.onmessage = function (evt) {
+        //受信処理
+        var received_msg = evt.data;
+        console.debug("receive:"+received_msg);
+        var receive_obj = (msgpack.unpack(new Uint8Array(received_msg)));
+        $('#chat').prepend('<p>' + receive_obj['aname'] + " : " + receive_obj['amessage'] + '</p>');
+      };
+
+      $('#send').click(function() {
+        //送信処理
+        if($('#message').val() == '') return;
+        var src = {'name':$('#name').val(), 'message':$('#message').val() };
+        $('#message').val("");
+        console.debug("sendmessage:");
+        console.debug(src);
+        var binary = msgpack.pack(src);
+        var arraybuffer = new Uint8Array(binary);
+        ws.send(arraybuffer.buffer);
+      });
+    });
+    </script>
+  </head>
+  <body>
+    <div>
+      <dl>
+        <dt>name：</dt><dd><input type="text" id="name"></dd>
+        <dt>message：</dt><dd><input type="text" id="message" size="140" /></dd>
+        <dd><input type="submit" id='send' value="送信" /></dd>
+      </dl>
+      <hr />
+      <div id="chat"></div>
+    </div>
+  </body>
+</html>
