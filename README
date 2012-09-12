@@ -1,5 +1,8 @@
-動かし方はここ参照
-http://d.hatena.ne.jp/kyubuns/20120908/1347129972
+server の動かし方:
+
+$ cd server
+$ bundle install
+$ bundle exec ruby chat_server.rb
 
 ----
 
@@ -9,5 +12,4 @@ http://d.hatena.ne.jp/kyubuns/20120908/1347129972
 ---msgpack.codec.js <- https://github.com/uupaa/msgpack.js
 --server
 ---chat_server.rb
----em-websocket <- https://github.com/igrigorik/em-websocket
-em-webscoketはそのままじゃダメなので上の記事参照。
+---Gemfile
