@@ -1,15 +1,23 @@
-server の動かし方:
-
-$ cd server
+[server]
+ruby:
+$ cd server/ruby
 $ bundle install
 $ bundle exec ruby chat_server.rb
+
+
+[client]
+coffee:
+$ cd client/coffee
+$ coffee -c chat.coffee
 
 ----
 
 -js_ruby_chat
 --client
----index.html
----msgpack.codec.js <- https://github.com/uupaa/msgpack.js
+---coffee
+----index.html
+----msgpack.codec.js <- https://github.com/uupaa/msgpack.js
 --server
----chat_server.rb
----Gemfile
+---ruby
+----chat_server.rb
+----Gemfile
