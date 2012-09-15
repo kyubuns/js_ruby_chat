@@ -35,6 +35,7 @@ extern class WebSocket {
   function close( ?code : Int, ?reason : String ) : Void;
 }
 
+@:native("msgpack")
 extern class Msgpack {
   static function pack(data:Dynamic):Dynamic;       //pack  ::json->array[]
   static function unpack(data:Uint8Array):Dynamic;  //unpack::array[]->json

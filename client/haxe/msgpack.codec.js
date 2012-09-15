@@ -3,9 +3,9 @@
 // === msgpack ===
 // MessagePack -> http://msgpack.sourceforge.net/
 
-this.Msgpack || (function(globalScope) {
+this.msgpack || (function(globalScope) {
 
-globalScope.Msgpack = {
+globalScope.msgpack = {
     pack:       msgpackpack,    // msgpack.pack(data:Mix,
                                 //              toString:Boolean = false):ByteArray/ByteString/false
                                 //  [1][mix to String]    msgpack.pack({}, true) -> "..."
