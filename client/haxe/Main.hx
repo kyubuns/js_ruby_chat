@@ -1,7 +1,6 @@
 import js.JQuery;
 import js.Lib;
 import haxe.io.Bytes;
-import org.msgpack.MsgPack;
 
 extern class Blob {}
 extern class ArrayBuffer {}
@@ -36,6 +35,11 @@ extern class WebSocket {
   function close( ?code : Int, ?reason : String ) : Void;
 }
 
+extern class Msgpack {
+  static function pack(data:Dynamic):Dynamic;       //pack  ::json->array[]
+  static function unpack(data:Uint8Array):Dynamic;  //unpack::array[]->json
+}
+
 class Main {
   static function main() {
     new JQuery(Lib.document).ready(function(e) {
@@ -52,9 +56,7 @@ class Main {
 
       ws.onmessage = function(e:{data:ArrayBuffer}) {
         var uint8array = new Uint8Array(e.data);
-        var array:Array<Int> = new Array<Int>();
-        for(i in 0...uint8array.length) array.push(uint8array[i]);  //ToDo: こんな泥臭いことしないとダメ？
-        var pack:Dynamic = MsgPack.decode(Bytes.ofData(array));
+        var pack:Dynamic = Msgpack.unpack(uint8array);
         var name:String = pack.aname;
         var msg:String = pack.amessage;
         new JQuery("#chat").append("<p>" + name + " : " + msg + "</p>");
@@ -65,10 +67,8 @@ class Main {
         var msg:String = new JQuery("#message").val();
 
         var hash:Dynamic = {"name":name, "message":msg};
-        var pack:Bytes = MsgPack.encode(hash);
-
-        var array:Array<Int> = pack.getData();
-        var uint8array = new Uint8Array(array);
+        var pack:Dynamic = Msgpack.pack(hash);
+        var uint8array = new Uint8Array(pack);
 
         ws.send(uint8array.buffer);
       });

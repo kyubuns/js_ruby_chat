@@ -12,7 +12,6 @@ $ coffee -c chat.coffee
 
 haxe:
 $ cd client/haxe
-$ haxelib install msgpack-haxe
 $ haxe compile.hxml
 
 ----
