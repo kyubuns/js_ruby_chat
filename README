@@ -11,6 +11,15 @@ $ cd client/coffee
 $ coffee -c chat.coffee
 
 ----
+プロトコル
+Client->Server
+-チャット送信
+ {"name":name, "message":message}をmsgpackにかけたもの。
+
+Server->Client
+-チャット受信
+{"aname":name, "amessage":message}をmsgpackにかけたもの。
+----
 
 -js_ruby_chat
 --client
