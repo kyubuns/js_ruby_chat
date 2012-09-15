@@ -10,6 +10,11 @@ coffee:
 $ cd client/coffee
 $ coffee -c chat.coffee
 
+haxe:
+$ cd client/haxe
+$ haxelib install msgpack-haxe
+$ haxe compile.hxml
+
 ----
 プロトコル
 Client->Server
@@ -26,6 +31,10 @@ Server->Client
 ---coffee
 ----index.html
 ----msgpack.codec.js <- https://github.com/uupaa/msgpack.js
+---haxe
+----index.html
+----Main.hx
+----compile.hxml
 --server
 ---ruby
 ----chat_server.rb

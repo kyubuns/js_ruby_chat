@@ -1,0 +1,5 @@
+-js chat.js
+-main Main
+-lib msgpack-haxe
+--dead-code-elimination
+-debug
