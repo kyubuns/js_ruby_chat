@@ -8,7 +8,9 @@ extern class ArrayBuffer {}
 extern class Uint8Array implements ArrayAccess<Int> {
   var buffer : ArrayBuffer;
   var length : Int;
-  public function new(array:Dynamic) : Void;
+
+  @:overload(function(len:Int):Void{})
+  public function new(array:ArrayBuffer) : Void;
 }
 
 extern class WebSocket {
